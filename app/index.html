@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Gajjanji</title>
+    <!-- iPhone: Share → Add to Home Screen opens Gajjanji full screen, with its own icon. -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Gajjanji" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="theme-color" content="#0F6B52" />
+    <link rel="apple-touch-icon" href="/app/icon-180.png" />
+    <link rel="manifest" href="/app/manifest.json" />
+    <style id="expo-reset">
+      html, body { height: 100%; background: #F6F3EB; }
+      body { overflow: hidden; }
+      #root { display: flex; height: 100%; flex: 1; }
+    </style>
+    <script>
+      // Saving data on the phone (SQLite in the browser) needs a "cross-origin isolated" page. GitHub Pages cannot send
+      // those headers, so a small service worker (coi-sw.js) adds them; the first visit reloads once to switch it on.
+      if (!window.crossOriginIsolated && 'serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/app/coi-sw.js', { scope: '/app/' }).then(function (r) {
+          if (sessionStorage.getItem('coi-reloaded')) return;
+          sessionStorage.setItem('coi-reloaded', '1');
+          if (r.active && !navigator.serviceWorker.controller) location.reload();
+          else navigator.serviceWorker.addEventListener('controllerchange', function () { location.reload(); });
+        });
+      }
+    </script>
+  <meta name="theme-color" content="#0F6B52">
+<link rel="icon" href="/app/favicon.ico"/></head>
+  <body>
+    <noscript>Gajjanji needs JavaScript.</noscript>
+    <div id="root"></div>
+  <script src="/app/_expo/static/js/web/index-5defc7306ae8bdd5ec4e4eac9b99d4a3.js" defer></script>
+</body>
+</html>
