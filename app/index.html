@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!-- maximum-scale=1: iPhone Safari zooms in when typing in a small text box and stays zoomed (screen cut at the sides). -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
     <title>Gajjanji</title>
     <!-- iPhone: Share → Add to Home Screen opens Gajjanji full screen, with its own icon. -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -13,9 +14,11 @@
     <link rel="apple-touch-icon" href="/app/icon-180.png" />
     <link rel="manifest" href="/app/manifest.json" />
     <style id="expo-reset">
-      html, body { height: 100%; background: #F6F3EB; }
+      /* 100dvh = the part of the screen Safari really shows (its bottom bar is not covered). */
+      html, body { height: 100%; height: 100dvh; background: #F6F3EB; }
       body { overflow: hidden; }
-      #root { display: flex; height: 100%; flex: 1; }
+      #root { display: flex; height: 100%; height: 100dvh; flex: 1; }
+      input, textarea { font-size: 16px !important; }   /* 16px or more: Safari does not zoom when typing */
     </style>
     <script>
       // Saving data on the phone (SQLite in the browser) needs a "cross-origin isolated" page. GitHub Pages cannot send
