@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gajjanji · Google Drive</title>
+</head>
+<body style="font-family: system-ui, sans-serif; background: #F6F3EB; color: #1d2b26; padding: 24px;">
+<p id="msg">Connecting Google Drive…</p>
+<script>
+// Google sends the Drive permission here (in the part after #). This page hands it to Gajjanji:
+// - the phone app: back to gajjanji:// (or exp:// in Expo Go), only those app links are allowed;
+// - the web app: through this site's own storage, then this window closes.
+(function () {
+  var h = location.hash.slice(1);
+  var state = new URLSearchParams(h).get('state') || '';
+  var back = state.indexOf('app:') === 0 ? state.slice(4) : '';
+  if (back && /^(gajjanji|exp|exps):\/\//.test(back)) { location.replace(back + '#' + h); return; }
+  try { localStorage.setItem('gajjanji-drive-result', JSON.stringify({ hash: h, at: Date.now() })); } catch (e) {}
+  document.getElementById('msg').textContent = 'Done. Go back to Gajjanji.';
+  setTimeout(function () { window.close(); }, 300);
+})();
+</script>
+</body>
+</html>
